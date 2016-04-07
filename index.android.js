@@ -12,8 +12,9 @@ import React, {
   Navigator,
   ToolbarAndroid,
   TouchableHighlight,
-  BackAndroid
+  BackAndroid,
 } from 'react-native';
+
 var _navigator; // we fill this up upon on first navigation.
 
 BackAndroid.addEventListener('hardwareBackPress', ()=>{
@@ -27,7 +28,7 @@ BackAndroid.addEventListener('hardwareBackPress', ()=>{
 class Navigation extends Component{
   render(){
     return(
-        <Navigator style={styles.container}
+        <Navigator
           initialRoute = {{'id':'first'}}
           renderScene = {this.navigatorRenderScene}
           configureScene={(route) => {
@@ -39,6 +40,7 @@ class Navigation extends Component{
           />
       );
   }
+
   navigatorRenderScene(route,navigator){
     _navigator = navigator;
     switch (route.id) {
@@ -63,15 +65,30 @@ class First extends Component{
           />
           <TouchableHighlight
             onPress={this.navSecond.bind(this)}>
-            <Text>Navigate to Second screen</Text>
+            <Text style = {{color:'red'}}>Navigate to Second screen</Text>
           </TouchableHighlight>
       </View>
       )
   }
+  // render(){
+  //   return(
+  //     <Navigator renderScene={this.renderScene.bind(this)}/>
+  //     )
+  // }
+  // renderScene(route,navigator){
+  //   return(
+  //     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+  //     <TouchableHighlight
+  //       onPress={this.navSecond.bind(this)}>
+  //       <Text style = {{color:'red'}}> First to Second</Text>
+  //     </TouchableHighlight>
+  //     </View>
+  //     )
+  // }
   navSecond(){
     this.props.navigator.push({
-      'title':'second',
-      'component':Second
+      'id':'second',
+      'name':'Second',
     })
   }
 }
